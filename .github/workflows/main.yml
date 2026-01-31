@@ -1,0 +1,34 @@
+              
+name: Build System Copy Tool
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # Linux (Ubuntu) üzerinde derleme işi
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Compile on Linux
+      run: gcc sys_cp_v2.c -o mycp4
+      
+    - name: Verify Build
+      run: ls -l mycp4
+
+  # Windows üzerinde derleme işi
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Compile on Windows
+      # Windows runner'larında GCC hazır gelir
+      run: gcc sys_cp_v2.c -o mycp4.exe
+      
+    - name: Verify Build
+      run: dir mycp4.exe
