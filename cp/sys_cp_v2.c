@@ -37,8 +37,10 @@ close(outputFd);
 exit(EXIT_FAILURE);
 }
 }
+#ifndef _WIN32
 if(fchmod(outputFd, sourceMetadata.st_mode) == -1){
 perror("Error: permissions couldn't edited");
+#endif
 }
 close(inputFd);
 close(outputFd);
