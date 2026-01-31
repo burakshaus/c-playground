@@ -19,5 +19,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y mingw-w64
 
-      - name: Compile with Make
-        run: make
+      - name: Compile for Windows
+        # 'make' yerine MinGW'nin 64-bit Windows derleyicisini çağırıyoruz
+        # Çıktı dosyası .exe uzantılı olmalı
+        run: x86_64-w64-mingw32-gcc sys_cp_v2.c -o mycp4.exe
+
+      # İPUCU: Oluşan .exe dosyasını indirmek istersen bu adımı ekleyebilirsin:
+      - name: Upload Windows Exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: mycp4-windows
+          path: mycp4.exe
