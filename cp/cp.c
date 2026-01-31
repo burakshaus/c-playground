@@ -20,10 +20,14 @@ int main(int argc, char *argv[]){
 	destFile = fopen(argv[2],"wb");
 	
 
-
+	size_t written;
 	while((bytesRead = fread(buffer,1,BUFFER_SIZE, sourceFile)) > 0){
-		fwrite(buffer,1,bytesRead,destFile);
+	written = fwrite(buffer,1,bytesRead,destFile);
 	}
+	if(written < bytesRead){
+		printf(" Error writing to destination file (Disk full?)");
+	}
+	
 	printf("File copied successfully. \n");
 	fclose(sourceFile);
 	fclose(destFile);
