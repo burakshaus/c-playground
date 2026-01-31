@@ -13,11 +13,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+    
+    # GCC zaten yüklü gelir, doğrudan derleme yapabiliriz
+    - name: Compile sys_cp
+      run: gcc sys_cp_v2.c -o mycp4
+
+    # Derlemenin başarılı olduğunu kanıtlamak için versiyon/yardım mesajı yazdırabilirsin
+    # Veya basitçe dosyanın oluşup oluşmadığını kontrol edebilirsin
+    - name: Verify Build
+      run: ls -l mycp4
+      
+    # İstersen burada basit bir test de yapabilirsin
+    - name: Run Test
+      run: |
+        echo "Test verisi" > test.txt
+        ./mycp4 test.txt kopya_test.txt
+        cat kopya_test.txt
